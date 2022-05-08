@@ -4,7 +4,7 @@
 웹 요청과 응답을 처리하는 컴포넌트<br>
 웹브라우저 요청을 상대할 경우 컨트롤러는 선택적으로 모델데이터를 채워 응답하며 브라우저에 반환되는 HTML 을 생성하기 위해 응답의 웹요청을 뷰에 전달<br>
 
-~~ java
+'''java
 @Controller
 public class HomeController {
 
@@ -13,7 +13,7 @@ public class HomeController {
         return "home"; // 뷰 이름 반환
     }
 }
-~~
+'''
 
 ###  1.3.2 뷰 정의하기
 src/main/resources/templates 에 html file 생성<br>
