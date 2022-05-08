@@ -4,7 +4,8 @@
 웹 요청과 응답을 처리하는 컴포넌트<br>
 웹브라우저 요청을 상대할 경우 컨트롤러는 선택적으로 모델데이터를 채워 응답하며 브라우저에 반환되는 HTML 을 생성하기 위해 응답의 웹요청을 뷰에 전달<br>
 
-'''java
+~~~java
+
 @Controller
 public class HomeController {
 
@@ -13,14 +14,16 @@ public class HomeController {
         return "home"; // 뷰 이름 반환
     }
 }
-'''
+
+~~~
 
 ###  1.3.2 뷰 정의하기
 src/main/resources/templates 에 html file 생성<br>
 
 ### 1.3.3 컨트롤러 테스트하기
 
-~~ java
+~~~java
+
 @WebMvcTest(HomeController.class)
 public class HomeControllerTest {
 
@@ -35,7 +38,8 @@ public class HomeControllerTest {
             .andExpect(content().string(containsString("Welcome to..."))); // Welcome to... 텍스트 포함
     }
 }
-~~ 
+
+~~~
 
 ### 1.3.5 스프링 부트 DevTools 알아보기
 개발자에게 편리한 도구 제공 <br>
