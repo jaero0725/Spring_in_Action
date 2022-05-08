@@ -4,6 +4,7 @@
 웹 요청과 응답을 처리하는 컴포넌트<br>
 웹브라우저 요청을 상대할 경우 컨트롤러는 선택적으로 모델데이터를 채워 응답하며 브라우저에 반환되는 HTML 을 생성하기 위해 응답의 웹요청을 뷰에 전달<br>
 
+~~ java
 @Controller
 public class HomeController {
 
@@ -12,11 +13,14 @@ public class HomeController {
         return "home"; // 뷰 이름 반환
     }
 }
+~~
 
 ###  1.3.2 뷰 정의하기
 src/main/resources/templates 에 html file 생성<br>
 
 ### 1.3.3 컨트롤러 테스트하기
+
+~~ java
 @WebMvcTest(HomeController.class)
 public class HomeControllerTest {
 
@@ -31,6 +35,8 @@ public class HomeControllerTest {
             .andExpect(content().string(containsString("Welcome to..."))); // Welcome to... 텍스트 포함
     }
 }
+~~ 
+
 ### 1.3.5 스프링 부트 DevTools 알아보기
 개발자에게 편리한 도구 제공 <br>
 
@@ -38,7 +44,7 @@ public class HomeControllerTest {
 - 브라우저로 전송되는 리소스가 변경될 때 자동으로 브라우저 새로고침한다
 - 템플릿 캐시를 자동으로 비활성화 한다
 - h2 데이터베이스를 사용한다면 자동으로 h2 콘솔을 활성화 한다
-- 
+
 ### 1.3.6 리뷰하기
 빌드 명세 <br>
 Web, Thymeleaf 의존성은 일부 다른 의존성도 포함 시킨다<br>
