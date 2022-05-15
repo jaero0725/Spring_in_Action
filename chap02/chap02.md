@@ -61,6 +61,7 @@ Lombok의 @Slf4j 에너테이션을 사용하면 컴파일시에 SLF4J Logger �
 #### 설정을 명시적으로 해주려면 아래와 같이 application.properties 파일에 해줘도 된다.
 > 사실 명시적으로 설정을 안해줘도 알아서 기본적으로 되어 있어 작동이 됨. 
 
+참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#common-application-properties-templating
 ```java
 # 참조경로
 spring.thymeleaf.prefix=classpath:templates/	-- prefix
@@ -120,3 +121,16 @@ public class ThymeleafViewResolverConfig {
     }
 }
 ```
+
+### 타임리프 특징
+#### 1. 서버사이드 HTML 렌더링(SSR)
+- 타임리프는 백엔드 서버에서 HTML을 동적으로 렌더링하는 용도로 사용됨.
+- 사용법은 SSR이 다 비슷해 학습하기 어렵지 않고, 페이지가 정적이고 빠른 생산성이 필요한 경우 백엔드 개발자가 페이지개발할 일이 생길때 좋은 선택
+#### 2. 네츄럴 템플릿
+- 순수 HTML을 최대한 유지하려는 특징, JSP와 큰 차이점. 웹브라우저에서 직접 열어도 내용확인이 가능
+#### 3. 스프링 통합 지원
+- 스프링과 자연스럽게 통합되어 스프링의 다양한 기능을 쉽게 사용할 수 있다.
+- SpringEL 문법 통합, 스프링 Valicdation, 오류 처리 등등 
+
+https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html#the-springstandard-dialect
+
