@@ -167,7 +167,114 @@ public class ThymeleafViewResolverConfig {
 - 순수 HTML을 최대한 유지하려는 특징, JSP와 큰 차이점. 웹브라우저에서 직접 열어도 내용확인이 가능
 #### 3. 스프링 통합 지원
 - 스프링과 자연스럽게 통합되어 스프링의 다양한 기능을 쉽게 사용할 수 있다.
-- SpringEL 문법 통합, 스프링 Validiation, 오류 처리 등등 
+- SpringEL 문법 통합, 스프링 Validation, 오류 처리 등등 
 
 https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html#the-springstandard-dialect
+
+
+## 2.2.3 타코 주문폼 뷰
+```html
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="EUC-KR">
+    <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+
+<form method="POST" th:action="@{/orders}" th:object="${order}">
+    <h1>Order your taco creations!</h1>
+
+    <img th:src="@{/images/TacoCloud.png}"/> <a th:href="@{/design}" id="another">Design another taco</a><br/>
+
+    <div th:if="${#fields.hasErrors()}">
+			<span class="validationError"> Please correct the problems below and resubmit. </span>
+    </div>
+
+    <h3>Deliver my taco masterpieces to...</h3>
+
+    <label for="deliveryName">Name: </label>
+    <input type="text" id="deliveryName" th:field="*{deliveryName}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('deliveryName')}"
+          th:errors="*{deliveryName}">Name Error</span>
+    <br/>
+
+    <label for="deliveryStreet">Street address: </label>
+    <input type="text" id="deliveryStreet" th:field="*{deliveryStreet}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('deliveryStreet')}"
+          th:errors="*{deliveryStreet}">Street Error</span>
+    <br/>
+
+    <label for="deliveryCity">City: </label>
+    <input type="text" id="deliveryCity" th:field="*{deliveryCity}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('deliveryCity')}"
+          th:errors="*{deliveryCity}">City Error</span>
+    <br/>
+
+    <label for="deliveryState">State: </label>
+    <input type="text" id ="deliveryState" th:field="*{deliveryState}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('deliveryState')}"
+          th:errors="*{deliveryState}">State Error</span>
+    <br/>
+
+    <label for="deliveryZip">Zip code: </label>
+    <input type="text" id ="deliveryZip" th:field="*{deliveryZip}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('deliveryZip')}"
+          th:errors="*{deliveryZip}">Zip Error</span>
+    <br/>
+
+    <h3>Here's how I'll pay...</h3>
+    <label for="ccNumber">Credit Card #: </label>
+    <input type="text" id ="ccNumber" th:field="*{ccNumber}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccNumber')}"
+          th:errors="*{ccNumber}">CC Num Error</span>
+    <br/>
+
+    <label for="ccExpiration">Expiration: </label>
+    <input type="text" id ="ccExpiration" th:field="*{ccExpiration}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccExpiration')}"
+          th:errors="*{ccExpiration}">CC Num Error</span>
+    <br/>
+
+    <label for="ccCVV">CVV: </label>
+    <input type="text" id ="ccCVV" th:field="*{ccCVV}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccCVV')}"
+          th:errors="*{ccCVV}">CC Num Error</span>
+    <br/>
+
+    <input type="submit" value="Submit order"/>
+</form>
+</body>
+</html>
+```
+
+## 2.2.4 타코 주문정보를 갖는 도메인 객체
+```java
+@Data
+public class Order {
+
+	private String name;
+	private String street;
+	private String city;
+	private String state;
+	private String zip;
+	private String ccNumber;
+	private String ccExpiration;
+	private String ccCVV;
+
+}
+```
+
+#### 틀린 데이터가 들어갈 수 있으므로, 데이터 검사가 필요 Data validation
+
 
