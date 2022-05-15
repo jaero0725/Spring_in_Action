@@ -89,14 +89,15 @@ public ThymeleafViewResolver viewResolver(){
   <property name="viewNames" value="*.html,*.xhtml" />
 </bean>
 ```
-
+https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html#views-and-view-resolvers-in-spring-mvc
 <br>
 
 #### 설정을 명시적으로 해주려면 아래와 같이 application.properties 파일에 해줘도 된다.
 > 사실 명시적으로 설정을 안해줘도 알아서 기본적으로 되어 있어 작동이 됨. 
 
 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#common-application-properties-templating
-```java
+
+```xml
 
 
 # 참조경로
