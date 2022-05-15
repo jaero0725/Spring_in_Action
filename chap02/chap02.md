@@ -167,7 +167,7 @@ public class ThymeleafViewResolverConfig {
 - 순수 HTML을 최대한 유지하려는 특징, JSP와 큰 차이점. 웹브라우저에서 직접 열어도 내용확인이 가능
 #### 3. 스프링 통합 지원
 - 스프링과 자연스럽게 통합되어 스프링의 다양한 기능을 쉽게 사용할 수 있다.
-- SpringEL 문법 통합, 스프링 Valicdation, 오류 처리 등등 
+- SpringEL 문법 통합, 스프링 Validiation, 오류 처리 등등 
 
 https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html#the-springstandard-dialect
 
