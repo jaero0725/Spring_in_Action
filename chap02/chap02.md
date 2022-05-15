@@ -54,12 +54,51 @@ Lombok의 @Slf4j 에너테이션을 사용하면 컴파일시에 SLF4J Logger �
 #### Q. 어떻게 String만 넘겨주면 저 위치로 알아서 보내줄까? 
 - 스프링의 뷰리졸버에서(SpringResourceTemplateResolver를 사용) prefix, suffix를 통해 view위치를 알아서 지정해줌. 
 - 타임리프를 템플릿 엔진으로 스프링 빈에 등록하려면, 타임리프용 뷰 리졸버를 스프링 빈으로 등록해야 한다. (이부분 의존성 추가하면 알아서 해줌) *** 
+<br>
+
+- 원래 template사용안할때, jsp 사용할때 이런식으로 
 - 
+```xml
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+  <property name="prefix" value="/WEB-INF/jsps/" />
+  <property name="suffix" value=".jsp" />
+  <property name="order" value="2" />
+  <property name="viewNames" value="*jsp" />
+</bean>
+```
+-타임리프에서는 이렇게 사용
+
+```java
+@Bean
+public ThymeleafViewResolver viewResolver(){
+    ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+    viewResolver.setTemplateEngine(templateEngine());
+    // NOTE 'order' and 'viewNames' are optional
+    viewResolver.setOrder(1);
+    viewResolver.setViewNames(new String[] {".html", ".xhtml"});
+    return viewResolver;
+}
+```
+
+```xml
+<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+  <property name="templateEngine" ref="templateEngine" />
+  <!-- NOTE 'order' and 'viewNames' are optional -->
+  <property name="order" value="1" />
+  <property name="viewNames" value="*.html,*.xhtml" />
+</bean>
+```
+
+
+<br>
 #### 설정을 명시적으로 해주려면 아래와 같이 application.properties 파일에 해줘도 된다.
 > 사실 명시적으로 설정을 안해줘도 알아서 기본적으로 되어 있어 작동이 됨. 
 
 참조 : https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#common-application-properties-templating
 ```java
+
+
 # 참조경로
 spring.thymeleaf.prefix=classpath:templates/	-- prefix
 spring.thymeleaf.suffix=.html  	                -- suffix
