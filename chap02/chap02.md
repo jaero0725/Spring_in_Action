@@ -38,11 +38,7 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public String processOrder(Order order, Errors errors) {	//error 처리하는점 확인 
-		if (errors.hasErrors()) {
-			return "orderForm";
-		}
-
+	public String processOrder(Order order) {	
 		log.info("Order submitted: " + order);
 		return "redirect:/";
 	}
@@ -57,7 +53,8 @@ Lombok의 @Slf4j 에너테이션을 사용하면 컴파일시에 SLF4J Logger �
 
 #### Q. 어떻게 String만 넘겨주면 저 위치로 알아서 보내줄까? 
 - 스프링의 뷰리졸버에서(SpringResourceTemplateResolver를 사용) prefix, suffix를 통해 view위치를 알아서 지정해줌. 
-
+- 타임리프를 템플릿 엔진으로 스프링 빈에 등록하려면, 타임리프용 뷰 리졸버를 스프링 빈으로 등록해야 한다. (이부분 의존성 추가하면 알아서 해줌) *** 
+- 
 #### 설정을 명시적으로 해주려면 아래와 같이 application.properties 파일에 해줘도 된다.
 > 사실 명시적으로 설정을 안해줘도 알아서 기본적으로 되어 있어 작동이 됨. 
 
