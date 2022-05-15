@@ -56,16 +56,67 @@ Lombok의 @Slf4j 에너테이션을 사용하면 컴파일시에 SLF4J Logger �
 - 위치 : /src/main/resources/template/orderForm.html 
 
 #### Q. 어떻게 String만 넘겨주면 저 위치로 알아서 보내줄까? 
-- 스프링의 뷰리졸버에서 prefix, suffix를 통해 view위치를 알아서 지정해줌. 
+- 스프링의 뷰리졸버에서(SpringResourceTemplateResolver를 사용) prefix, suffix를 통해 view위치를 알아서 지정해줌. 
 
 #### 설정을 명시적으로 해주려면 아래와 같이 application.properties 파일에 해줘도 된다.
 > 사실 명시적으로 설정을 안해줘도 알아서 기본적으로 되어 있어 작동이 됨. 
 
 ```java
-spring.thymeleaf.prefix=classpath:templates/
-spring.thymeleaf.check-template-location=true
-spring.thymeleaf.suffix=.html
-spring.thymeleaf.mode=HTML5
-spring.thymeleaf.cache=false
-spring.thymeleaf.order=0
+# 참조경로
+spring.thymeleaf.prefix=classpath:templates/	-- prefix
+spring.thymeleaf.suffix=.html  	                -- suffix
+
+# templates 디렉토리에 파일이 있는지 없는지 체크, 없으면 에러를 발생시킨다.
+spring.thymeleaf.check-template-location=true   -- 위치에 template이 존재하느니 check를 할지 안할지 
+
+spring.thymeleaf.mode=HTML5			-- 형식모드
+
+# thymeleaf에 대한 캐시를 남기지 않는다. cache=false 설정(운영시는 true)
+spring.thymeleaf.cache=false                    -- cache 사용할지 안할지
+```
+
+#### 아래와 같이 appplication.properties 설정 없이 java Config파일에 설정을 할 수도 있다.
+```java
+@Configuration
+public class ThymeleafViewResolverConfig { 
+    
+    @Value("${thymeleaf.cache}") 
+    private boolean isCache;
+    
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver  templateResolver = new SpringResourceTemplateResolver ();
+        templateResolver.setPrefix("classpath:templates/");
+        templateResolver.setCharacterEncoding("UTF-8");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode("LEGACYHTML5");
+        templateResolver.setCacheable(isCache);
+        return templateResolver;
+    }
+    
+    @Bean
+    public SpringTemplateEngine templateEngine(MessageSource messageSource) {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setTemplateEngineMessageSource(messageSource);
+        templateEngine.addDialect(layoutDialect());
+        
+        return templateEngine;
+    }
+    
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
+    }
+ 
+    @Bean
+    @Autowired
+    public ViewResolver viewResolver(MessageSource messageSource) {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine(messageSource));
+        viewResolver.setCharacterEncoding("UTF-8");
+        viewResolver.setOrder(0);
+        return viewResolver;
+    }
+}
 ```
