@@ -2,12 +2,11 @@
 ## 📖 이장에서 배우는 내용 
 - 스프링 JdbcTemplate 사용하기
 - simpleJdbcInsert를 사용해서 데이터 추가하기
-####  추가 
-- 1) Spring 에서 Database를 다루는 큰 그림
-- 2) Plain JDBC(Java Jdbc) vs Spring JDBC(Spring JdbcTemplate)
-- 3) Datasource의 Connection Pool 개념
-- 4) JdbcTemplate을 이용하여 CRUD동작 구현하기 
-
+####  ➕
+1) Spring 에서 Database를 다루는 큰 그림
+2) Plain JDBC(Java Jdbc) vs Spring JDBC(Spring JdbcTemplate)
+3) Datasource의 Connection Pool 개념
+4) JdbcTemplate을 이용하여 CRUD동작 구현하기 
 
 ## 3.1 JDBC를 사용해서 데이터를 읽고 쓰기
 ### 3.1.0 DB 사용법 두가지 - JDBC / JPA 
