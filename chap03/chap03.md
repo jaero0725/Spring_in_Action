@@ -2,9 +2,6 @@
 ## 📖 이장에서 배우는 내용 
 - 스프링 JdbcTemplate 사용하기
 - simpleJdbcInsert를 사용해서 데이터 추가하기
-
-<br>
-
 ####  추가 
 - 1) Spring 에서 Database를 다루는 큰 그림
 - 2) Plain JDBC(Java Jdbc) vs Spring JDBC(Spring JdbcTemplate)
