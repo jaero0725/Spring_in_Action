@@ -6,7 +6,7 @@
 
 |chapter|날짜|진행상황|
 |------|---|---|
-|1장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap01/chap01.md">스프링 시작하기</a>|22-05-08|☑️|
+|1장  <a href="https://github.com/jaero0725/Spring_in_Action/tree/main/chap01">스프링 시작하기</a>|22-05-08|☑️|
 |2장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap02/chap02.md">웹 애플리케이션 개발하기</a>|22-05-15|☑️|
 |3장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap03/chap03.md">데이터로 작업하기</a>|22-05-22|☑️|
                 
