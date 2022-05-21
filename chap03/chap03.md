@@ -11,8 +11,22 @@
 
 ## 3.1.0 Spring에서 Database를 다루는 큰그림
 ![image](https://user-images.githubusercontent.com/55049159/169668555-346e2b04-6c06-4f1e-9c26-3f8b308c4b75.png)
+client가 웹으로 request를 보내면 servlet으로 구현된 controller가 request를 받아, service 클래스를 호출한다. <br> 
+비지니스 로직은 service에서 실행되고 그 결과를 controller에게 주고 controller가 받아 model에 넣어주고 그 model을 JSP에 넣어줘서 보내주거나 타임리프를 사용하여 보내주기도한다.
+
+데이터베이스를 접근할때, DAO(repository)의 계층이 더 필요하다. sql을 만들어서 DB에 요청하고, 결과를 받아 객체를 리턴해주는 역할이라고
+DB에 관련된것을 DAO에 몰아넣고 사용한다고 보면됨. 
 
 ![image](https://user-images.githubusercontent.com/55049159/169668538-65d3d66e-739d-47ed-af38-8a1c2da0e364.png)
+
+DAO와 DB사이에 3가지 클래스가 존재한다. <br> 
+
+DAO는 JDBC interface를 이용하기 위해 JDBC template를 이용한다. spring-jdbc 라이브러리서 제공하고 있는 하나의 클래스이다. <br> 
+
+다양한 데이터베이스가 있을 수 있는데, JDBC template이 Jdbc Driver를 사용하여 DB를 접근한다. <br> 
+
+데이터베이스를 접근하기 위해 connection이 필요한데, 그 connection을 만들기 위한 설정정보를 담고 있는 Configuration인 DataSource를JDBC template이 사용한다. <br> 
+
 
 ## 3.1.1 Plain JDBC vs Spring JDBC
 > <b>Plain JDBC</b> <br>
