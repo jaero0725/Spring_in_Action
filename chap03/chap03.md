@@ -16,17 +16,55 @@
 
 ## 3.1.1 Plain JDBC vs Spring JDBC
 > Plain JDBC <br>
-> Write unnecessary code to handle exceptions, opening and closing database connections, etc
+> 모든거를 개발자가 직접 다 해야함. 오류처리 커낵션 연결 등등.. 
+
+``java
+public void GettingRows() {
+    Connection conn=null;
+    Statement stmt=null;
+    Resultset rset=null;
+
+   try {
+        conn = dataSource.getConnection();
+        stmt = conn.createStatement (); 
+        rset = stmt.executeQuery ("select count(*) from customers");
+        while (rset.next()) {
+	   count = rs.getInt(1);
+        }
+
+   } catch (SQLException e) {
+	LOGGER.error(e); throw e;
+    }
+   finally {
+             //code to clean up resources
+   }
+``
 
 <br>
 
-> Spring JDBC
-> Takes care of all the low-level details 
-> opening the connection
-> prepare and execute the SQL statement
-> process exceptions
-> handle transactions
-> close the connection
+> Spring JDBC <br> 
+> low levels에 대해 관심을 끄게 해줌 
+> connection을 열어줌
+> SQL statement를 준비하고 실행시켜줌
+> 에러처리 
+> 트랜잭션 핸들링
+> connection 닫아줌
+
+``java
+@Repository
+public class SpringDaoImpl {
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+     public void setDataSource(DataSource dataSource) {
+         this.jdbcTemplate = new JdbcTemplate(dataSource);
+     }
+
+     public int getCustomerCount() {
+         return jdbcTemplate.queryForInt("select count(*) from customers");
+     }
+}
+``
 
 ![image](https://user-images.githubusercontent.com/55049159/169668591-c044c9e1-0e96-4f6f-8907-1de1ebe186c9.png)
 
