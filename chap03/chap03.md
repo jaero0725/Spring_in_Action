@@ -18,7 +18,7 @@
 > Plain JDBC <br>
 > 모든거를 개발자가 직접 다 해야함. 오류처리 커낵션 연결 등등.. 
 
-``java
+```java
 public void GettingRows() {
     Connection conn=null;
     Statement stmt=null;
@@ -38,7 +38,7 @@ public void GettingRows() {
    finally {
              //code to clean up resources
    }
-``
+```
 
 <br>
 
@@ -50,7 +50,7 @@ public void GettingRows() {
 > 트랜잭션 핸들링
 > connection 닫아줌
 
-``java
+```java
 @Repository
 public class SpringDaoImpl {
     private JdbcTemplate jdbcTemplate;
@@ -64,7 +64,7 @@ public class SpringDaoImpl {
          return jdbcTemplate.queryForInt("select count(*) from customers");
      }
 }
-``
+```
 
 ![image](https://user-images.githubusercontent.com/55049159/169668591-c044c9e1-0e96-4f6f-8907-1de1ebe186c9.png)
 
