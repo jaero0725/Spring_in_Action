@@ -27,6 +27,7 @@ DAO는 JDBC interface를 이용하기 위해 JDBC template를 이용한다. spri
 
 데이터베이스를 접근하기 위해 connection이 필요한데, 그 connection을 만들기 위한 설정정보를 담고 있는 Configuration인 DataSource를JDBC template이 사용한다. <br> 
 
+(1), (2), (3)은 libary를 제공받아 사용한다. <br>
 
 ## 3.1.1 Plain JDBC vs Spring JDBC
 > <b>Plain JDBC</b> <br>
@@ -87,8 +88,11 @@ public class SpringDaoImpl {
 - SQL statement 쓰기
 - 파라미터의 선언과 파라미터 value 제공
 
-## 3.1.2 Datasource 과 Connection Pool의 개념 
+## 3.1.2 Datasource 과 Connection Pool의 개념
 
+- Database에 접근하기 위해선 connection을 사용해야 한다. 
+- connection설정을 위해 spring에서는 Datasource를 사용한다. 
+- DataSource(Interface) -> 구현체 : BasicDataSource, poolingDataSource, SingleConnectionDataSource, DriverManagerDatasource 
 ![image](https://user-images.githubusercontent.com/55049159/169668576-f7d01c6e-d0d2-4143-b7aa-b84a5c23b8ed.png)
 
 
