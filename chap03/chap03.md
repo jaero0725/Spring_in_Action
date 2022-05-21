@@ -89,12 +89,19 @@ public class SpringDaoImpl {
 
 ### 스키마 정의 
 
-#### 💡 update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate에서 update만으로는 작업이 안된다. 다른 몇가지 방식을 통해서 작업을 해야 한다. 
+#### 💡 update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate을 사용하는 것보다 더 나은 방법이 존재한다. 
 
 ## 3.1.4 SimpleJdbcInsert 사용하기
 - SimpleJdbcInsert는 간단하게 데이터를 저장하기 위해 만들어진 구현체이다.
 - 기존의 의존성 주입으로 JdbcTemplate을 받는거와는 조금 다르게 설정을 해줘야 하는 부분이 있다.
 
+- Map 자료구조로 필요한 파라미터 값들을 미리 대입시키고, SimpleJdbcInsert.executeAndReturnKey(Map).longValue() 를 수행하면 곧장 primary key 값을 얻어낼 수 있다.
 
+- 이 동작이 가능하게 한 핵심은 생성자 쪽의 withTableName()과 usingGeneratedKeyColumns다.
+
+- primary key 값을 얻어내는 과정은 우아해졌지만, Map 자료구조를 사용하는게 다소 아쉽다.
+이를 보완하기 위해 SqlParameterSource 인터페이스가 활용되는데, 스프링에서 SqlParameterSource의 구현체를 다수 제공하고 있다.
+
+- 
 ## 3.1.5 결론
 최근 JPA 나 MyBatis 같은 더욱 강력한 도구들이 나와있지만, 간단한 초기 설정과 낮은 학습비용 덕분에 여전히 JDBC를 사용하는 곳이 존재한다. 또 몰라서 못쓰는 것과, 알고 안쓰는 것은 분명히 다르다고 생각한다. 
