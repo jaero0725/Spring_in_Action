@@ -15,9 +15,11 @@
 ![image](https://user-images.githubusercontent.com/55049159/169668538-65d3d66e-739d-47ed-af38-8a1c2da0e364.png)
 
 ## 3.1.1 Plain JDBC vs Spring JDBC
-> Plain JDBC
+> Plain JDBC <br>
 > Write unnecessary code to handle exceptions, opening and closing database connections, etc
+
 <br>
+
 > Spring JDBC
 > Takes care of all the low-level details 
 > opening the connection
