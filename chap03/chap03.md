@@ -68,6 +68,11 @@ public class SpringDaoImpl {
 
 ![image](https://user-images.githubusercontent.com/55049159/169668591-c044c9e1-0e96-4f6f-8907-1de1ebe186c9.png)
 
+#### 결국 Spring jdbc를 사용하는 우리가 해야하는 부분?
+- 커넥션 파라미터 정의
+- SQL statement 쓰기
+- 파라미터의 선언과 파라미터 value 제공
+
 ## 3.1.2 Datasource 과 Connection Pool의 개념 
 
 ![image](https://user-images.githubusercontent.com/55049159/169668576-f7d01c6e-d0d2-4143-b7aa-b84a5c23b8ed.png)
