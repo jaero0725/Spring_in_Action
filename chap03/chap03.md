@@ -15,7 +15,7 @@
 ![image](https://user-images.githubusercontent.com/55049159/169668538-65d3d66e-739d-47ed-af38-8a1c2da0e364.png)
 
 ## 3.1.1 Plain JDBC vs Spring JDBC
-> Plain JDBC <br>
+> <b>Plain JDBC</b> <br>
 > 모든거를 개발자가 직접 다 해야함. 오류처리 커낵션 연결 등등.. 
 
 ```java
@@ -42,12 +42,12 @@ public void GettingRows() {
 
 <br>
 
-> Spring JDBC <br> 
-> low levels에 대해 관심을 끄게 해줌 
-> connection을 열어줌
-> SQL statement를 준비하고 실행시켜줌
-> 에러처리 
-> 트랜잭션 핸들링
+> <b>Spring JDBC</b> <br> 
+> low levels에 대해 관심을 끄게 해줌 <br>
+> connection을 열어줌<br>
+> SQL statement를 준비하고 실행시켜줌<br>
+> 에러처리 <br>
+> 트랜잭션 핸들링<br>
 > connection 닫아줌
 
 ```java
