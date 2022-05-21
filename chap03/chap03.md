@@ -79,6 +79,19 @@ public class SpringDaoImpl {
 
 
 ## 3.1.3 JdbcTemplate을 이용하여 CRUD동작 구현하기
+
+#### 의존성 추가
+
+#### 리포지터리 정의 (DAO) 
+- 인터페이스를 만들고 그 함수들을 Override하는 방식으로 구현 
+
+#### RowMapper 사용 
+
+#### 스키마 정의 
+
+#### update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate에서 update만으로는 작업이 안된다.
+#### 다른 몇가지 방식을 통해서 작업을 해야 한다. 
+
 ## 3.1.4 SimpleJdbcInsert 사용하기
 
 
