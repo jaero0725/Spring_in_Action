@@ -92,5 +92,9 @@ public class SpringDaoImpl {
 #### 💡 update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate에서 update만으로는 작업이 안된다. 다른 몇가지 방식을 통해서 작업을 해야 한다. 
 
 ## 3.1.4 SimpleJdbcInsert 사용하기
+- SimpleJdbcInsert는 간단하게 데이터를 저장하기 위해 만들어진 구현체이다.
+- 기존의 의존성 주입으로 JdbcTemplate을 받는거와는 조금 다르게 설정을 해줘야 하는 부분이 있다.
 
 
+## 3.1.5 결론
+최근 JPA 나 MyBatis 같은 더욱 강력한 도구들이 나와있지만, 간단한 초기 설정과 낮은 학습비용 덕분에 여전히 JDBC를 사용하는 곳이 존재한다. 또 몰라서 못쓰는 것과, 알고 안쓰는 것은 분명히 다르다고 생각한다. 
