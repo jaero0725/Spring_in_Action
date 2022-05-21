@@ -89,7 +89,7 @@ public class SpringDaoImpl {
 
 ### 스키마 정의 
 
-####  update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate에서 update만으로는 작업이 안된다. 다른 몇가지 방식을 통해서 작업을 해야 한다. 
+#### 💡 update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate에서 update만으로는 작업이 안된다. 다른 몇가지 방식을 통해서 작업을 해야 한다. 
 
 ## 3.1.4 SimpleJdbcInsert 사용하기
 
