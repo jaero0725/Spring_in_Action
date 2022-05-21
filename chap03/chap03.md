@@ -27,6 +27,8 @@ DAO는 JDBC interface를 이용하기 위해 JDBC template를 이용한다. spri
 
 데이터베이스를 접근하기 위해 connection이 필요한데, 그 connection을 만들기 위한 설정정보를 담고 있는 Configuration인 DataSource를JDBC template이 사용한다. <br> 
 
+여기서는 내부 DB를 사용하여 Datasource를 사용하진 않지만 외부 DB를 사용하여 연결하려면 Datasource를 필수적으로 설정해야 한다. <br>
+
 (1), (2), (3)은 libary를 제공받아 사용한다. <br>
 
 ## 3.1.1 Plain JDBC vs Spring JDBC
@@ -92,8 +94,17 @@ public class SpringDaoImpl {
 
 - Database에 접근하기 위해선 connection을 사용해야 한다. 
 - connection설정을 위해 spring에서는 Datasource를 사용한다. 
-- DataSource(Interface) -> 구현체 : BasicDataSource, poolingDataSource, SingleConnectionDataSource, DriverManagerDatasource 
+- DataSource(Interface) -> 구현체 : <b> BasicDataSource </b>, poolingDataSource, SingleConnectionDataSource, DriverManagerDatasource
+
 ![image](https://user-images.githubusercontent.com/55049159/169668576-f7d01c6e-d0d2-4143-b7aa-b84a5c23b8ed.png)
+ 
+client으로 부터 request가 오면, tomcat이 request당 thread를 만든다. <br>
+thread를 만들고 제거하는 비용이 크다. thread가 무변별하게 만들어지고 제거되는 상황에서 성능에 치명적인 영향을 준다. <br>
+tomcat에서 thread pool을 만들어놔서, 미리 어느정도 만들어 논다. request가 올때 그떄그떄 생성하지 않고 만들어 놓고 준다. <br>
+traffic이 몰리면 기다리는 경우, thread가 부족해서 waiting하는 경우라고 보면됨. <br><br>
+
+DB connection Pool도 마찬가지의 개념이다. DB를 사용하려면 connection을 만들어야 하는데 open, close에 대한 overhead가 커서 미리 만들어놓고 꺼내서 쓰도록 한다.<br>
+connetion pool의 갯수는 파라미터로 설정이 가능함. 너무 많이 만들어놓으면 메모리를 많이 잡아먹을 수 있기때문에 적절한 갯수만큼의 설정을 해주는 것이 좋다. 
 
 
 ## 3.1.3 JdbcTemplate을 이용하여 CRUD동작 구현하기
