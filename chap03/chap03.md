@@ -109,6 +109,18 @@ connetion pool의 갯수는 파라미터로 설정이 가능함. 너무 많이 �
 ## 3.1.3 JdbcTemplate을 이용하여 CRUD동작 구현하기
 
 ### 의존성 추가
+```
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
+    <!-- 추가적인 JDBC -->
+    <dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-java</artifactId>
+    </dependency>
+
+```
 
 ### 리포지터리 정의 (DAO) 
 - 인터페이스를 만들고 그 함수들을 Override하는 방식으로 구현 
