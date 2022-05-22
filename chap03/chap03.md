@@ -125,6 +125,8 @@ connetion pool의 갯수는 파라미터로 설정이 가능함. 너무 많이 �
 ### 리포지터리 정의 (DAO) 
 - 인터페이스를 만들고 그 함수들을 Override하는 방식으로 구현 
 
+
+
 #### interface
 ```java
 public interface IngredientRepository {
@@ -136,6 +138,26 @@ public interface IngredientRepository {
 
 ### 구현 
 ```java
+/*
+
+# Jdbc Template을 활용한 select처리
+Select 구분
+
+query() : 쿼리문 수행결과가 한개 이상일 경우 -> list 로 반환 
+queryForObjcet() : 쿼리문 수행결과가 한개 일경우 -> 객체 그대로 반환
+
+query(sql, new Object[]{}, new RowMapper<Type>(){
+		...
+	});
+new Object []{값, 값, ...} : sql ?에 세팅할 값 / 매개변수가 없으면 필요없음. 
+new RowMapper<Type>() : 조회 결과를 ResultSet으로 읽어 Type으로 변환한다. mapRow을 override해서 사용.
+	
+# update메서드 
+update(sql, new Object[] {값,값,값}; : ?에 세팅할 값
+
+
+*/
+
 @Repository
 public class JdbcIngredientRepository implements IngredientRepository {
 
@@ -149,30 +171,40 @@ public class JdbcIngredientRepository implements IngredientRepository {
     @Override
     public Iterable<Ingredient> findAll() {
         return jdbcTemplate.query(
-                "select id, name, type from Ingredient",
-                this::mapRowToIngredient);
+                "select id, name, type from Ingredient", // 첫번째 인자 : sql문
+                this::mapRowToIngredient); // 두번째 인자 : 결과값을 처리하는 부분. 
 
     }
 
 //query 메서드는 두개의 인자를 받는다. 첫번째는 sql이며, 두번째는 RowMapper 인터페이스를 구현한 메서드이다.
 //이부분에 대해서 익명함수를 사용해서 사용해도되지만, 여기서는 this::mapRowToIngredient를 사용하였다. 
 /*
-String SQL = "select * from Student"; 
-List<Student> students = jdbcTemplateObject.query (SQL, 
-				new RowMapper<Student>( ) {
 
-   public Student mapRow(ResultSet rs, int rowNum) 
-			throws SQLException { 
-        Student student = new Student(); 
-
-        student.setID(rs.getInt("id")); 
-        student.setName(rs.getString("name")); 
-        student.setAge(rs.getInt("age")); 
-
-        return student; 
-    } 
+public int getCustomerCount(){
+	return jdbcTemplate.queryForInt("select count(*) from customer");
 }
-);
+=>
+public int getCustomerCount(){
+	return jdbcTemplate.queryForObject("select count(*) from customer", Integer.class);
+}
+
+### RowMapper 사용 
+	String SQL = "select * from Student";
+	
+	List<Student> students = jdbcTemplate.query (
+					SQL, 
+					new RowMapper<Student>( ) {
+	   public Student mapRow(ResultSet rs, int rowNum) throws SQLException { 
+		Student student = new Student(); 
+
+		student.setID(rs.getInt("id")); 
+		student.setName(rs.getString("name")); 
+		student.setAge(rs.getInt("age")); 
+
+		return student; 
+	    } 
+	}
+	
 */
     @Override
     public Ingredient findById(String id) {
@@ -180,6 +212,9 @@ List<Student> students = jdbcTemplateObject.query (SQL,
                 "select id, name, type from Ingredient where id=?",
                 this::mapRowToIngredient, id);
     }
+    
+    //하나만 가져올때 queryForObject를 사용한다. 첫번쨰, 두번째 매개변수가 query와 같고, 세번째 매개변수로 id를 준다. 
+    //세번째 매개변수가 ?를 교채하여 넣어준다. 
 
     @Override
     public Ingredient save(Ingredient ingredient) {
@@ -190,10 +225,20 @@ List<Student> students = jdbcTemplateObject.query (SQL,
                 ingredient.getType().toString());
         return ingredient;
     }
+    //JdbcTemplate의 update 메서드는 결과 세트의 데이터를 객체로 생성할 필요가 없어 query()나 queryForObject보다 간단하다. 
+    //?,?,? 에 들어갈 각 매개변수속성값만 지정하면된다. 
+    private Ingredient mapRowToIngredient(ResultSet rs int rowNum){
+   	 return new Ingredient(
+		 rs.getString("id"), 
+		 rs.getString("name"), 
+		 Ingredient.Type.valueOf(rs.getString("type"))
+		 );
+    }
 }
 
 ```
 ### RowMapper 사용 
+![image](https://user-images.githubusercontent.com/55049159/169673645-482da307-0b17-4305-a6ea-8a619cc199a1.png)
 
 
 #### 💡 update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate을 사용하는 것보다 더 나은 방법이 존재한다. 
