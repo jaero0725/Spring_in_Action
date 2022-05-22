@@ -345,25 +345,25 @@ public class JdbcOrderRepository implements OrderRepository {
         // Order 와 Taco 객체들을 저장하는 처리 총괄
         // 실제 저장하는 일은 saveOrderDetails(order), saveTacoToOrder(taco, orderId)
         order.setPlacedAt(new Date());
-        long orderId = saveOrderDetails(order);
+        long orderId = saveOrderDetails(order);	// 아래 함수로
         order.setId(orderId);
         List<Taco> tacos = order.getTacos();
         for (Taco taco : tacos) {
-            saveTacoToOrder(taco, orderId);
+            saveTacoToOrder(taco, orderId); // 아래함수로
         }
 
         return order;
     }
 
     private long saveOrderDetails(Order order) {
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") //try-catch로 안막음
         Map<String, Object> values =
-                objectMapper.convertValue(order, Map.class);
+                objectMapper.convertValue(order, Map.class);  
         values.put("placedAt", order.getPlacedAt());
-        long orderId =
-                orderInserter
-                        .executeAndReturnKey(values)
-                        .longValue();
+	
+        long orderId = orderInserter
+                        .executeAndReturnKey(values)	
+                        .longValue();		//이렇게 실행하면 곧장 primary key를 얻어낼 수 있따. 
         return orderId;
     }
 
