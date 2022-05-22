@@ -283,7 +283,7 @@ public class JdbcTacoRepository implements TacoRepository {
 
         preparedStatementCreatorFactory.setReturnGeneratedKeys(true);
 
-        PreparedStatementCreator psc = preparedStatementCreatorFactory.newPreparedStatementCreator(
+        PreparedStatementCreator psc = preparedStatementCreatorFactory.new PreparedStatementCreator(
                 Arrays.asList(
                         taco.getName(),
                         new Timestamp(taco.getCreatedAt().getTime())));
@@ -325,7 +325,10 @@ public class JdbcOrderRepository implements OrderRepository {
     private SimpleJdbcInsert orderInserter;
     private SimpleJdbcInsert orderTacoInserter;
     private ObjectMapper objectMapper;
-
+    
+ // Object Mapper 는 java Object <->  json 으로 convert 해주는 역할을 자주하는데, 
+ // 여기에서는 Map <-> java Object 하기 위해 사용됨. 
+ 
     @Autowired
     public JdbcOrderRepository(JdbcTemplate jdbcTemplate) {
         // Order 테이블에 주문 정보 입력
@@ -363,7 +366,7 @@ public class JdbcOrderRepository implements OrderRepository {
 	
         long orderId = orderInserter
                         .executeAndReturnKey(values)	
-                        .longValue();		//이렇게 실행하면 곧장 primary key를 얻어낼 수 있따. 
+                        .longValue();		//이렇게 실행하면 곧장 primary key를 얻어낼 수 있. 
         return orderId;
     }
 
