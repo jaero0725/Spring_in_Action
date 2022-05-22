@@ -251,6 +251,57 @@ public int getCustomerCount(){
 ### RowMapper 사용 
 ![image](https://user-images.githubusercontent.com/55049159/169673645-482da307-0b17-4305-a6ea-8a619cc199a1.png)
 
+```java
+@Repository
+public class JdbcTacoRepository implements TacoRepository {
+
+    private JdbcTemplate jdbcTemplate;
+
+    public JdbcTacoRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public Taco save(Taco taco) {
+        long tacoId = saveTacoInfo(taco);
+        taco.setId(tacoId);
+
+        for (Ingredient ingredient : taco.getIngredients()) {
+            saveIngredientToTaco(ingredient, tacoId);
+        }
+
+        return taco;
+    }
+
+    private long saveTacoInfo(Taco taco) {
+
+        taco.setCreatedAt(new Date());
+        PreparedStatementCreatorFactory  preparedStatementCreatorFactory =
+                new PreparedStatementCreatorFactory (
+                        "insert into Taco (name, createdAt) values (?, ?)",
+                        Types.VARCHAR, Types.TIMESTAMP);
+
+        preparedStatementCreatorFactory.setReturnGeneratedKeys(true);
+
+        PreparedStatementCreator psc = preparedStatementCreatorFactory.newPreparedStatementCreator(
+                Arrays.asList(
+                        taco.getName(),
+                        new Timestamp(taco.getCreatedAt().getTime())));
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(psc, keyHolder);
+
+        return keyHolder.getKey().longValue();
+    }
+
+    private void saveIngredientToTaco(Ingredient ingredient, long tacoId) {
+        jdbcTemplate.update(
+                "insert into " +
+                        "Taco_Ingredients (taco, ingredient) " +
+                        "values (?, ?)",
+                tacoId, ingredient.getId());
+    }
+```
 
 #### 💡 update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate을 사용하는 것보다 더 나은 방법이 존재한다. 
 
