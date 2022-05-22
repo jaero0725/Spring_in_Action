@@ -158,10 +158,10 @@ new RowMapper<Type>() : 조회 결과를 ResultSet으로 읽어 Type으로 변�
 update(sql, new Object[] {값,값,값}; : ?에 세팅할 값
 
 String SQL = "insert into Student (name, age) values (?, ?)"; 
-jdbcTemplateObject.update( SQL, new Object[]{"Zara", 11} );
+jdbcTemplateObject.update( SQL, new Object[]{"jaeho", 11} );
 
 String SQL = "update Student set name = ? where id = ?"; 
-jdbcTemplateObject.update( SQL, new Object[]{"Zara", 10} );
+jdbcTemplateObject.update( SQL, new Object[]{"jaeho", 10} );
 
 String SQL = "delete  from Student where id = ?"; 
 jdbcTemplateObject.update( SQL, new Object[]{20} );
@@ -236,12 +236,14 @@ public int getCustomerCount(){
     }
     //JdbcTemplate의 update 메서드는 결과 세트의 데이터를 객체로 생성할 필요가 없어 query()나 queryForObject보다 간단하다. 
     //?,?,? 에 들어갈 각 매개변수속성값만 지정하면된다. 
-    private Ingredient mapRowToIngredient(ResultSet rs int rowNum){
-   	 return new Ingredient(
-		 rs.getString("id"), 
-		 rs.getString("name"), 
-		 Ingredient.Type.valueOf(rs.getString("type"))
-		 );
+    private Ingredient mapRowToIngredient(ResultSet rs int rowNum) {
+    	Ingredient ingredient new Ingerdient();
+	
+	ingredient.setId(rs.getString("id"));
+	ingredient.setName(rs.getString("name"));
+	Ingredient.Type.valueOf(rs.getString("type"));
+	
+	return Ingredient;
     }
 }
 
@@ -263,5 +265,65 @@ public int getCustomerCount(){
 - primary key 값을 얻어내는 과정은 우아해졌지만, Map 자료구조를 사용하는게 다소 아쉽다.
 이를 보완하기 위해 SqlParameterSource 인터페이스가 활용되는데, 스프링에서 SqlParameterSource의 구현체를 다수 제공하고 있다.
 
+### 구현된 코드 
+
+```java
+@Repository
+public class JdbcOrderRepository implements OrderRepository {
+
+    private SimpleJdbcInsert orderInserter;
+    private SimpleJdbcInsert orderTacoInserter;
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    public JdbcOrderRepository(JdbcTemplate jdbcTemplate) {
+        // Order 테이블에 주문 정보 입력
+        this.orderInserter = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("Taco_Order")
+                .usingGeneratedKeyColumns("id");
+
+        // Taco_Order_Tacos 테이블에 해당 주문 id 및 연관된 타코들의 id 추가
+        this.orderTacoInserter = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("Taco_Order_Tacos");
+
+        this.objectMapper = new ObjectMapper();
+    }
+
+    @Override
+    public Order save(Order order) {
+        // Order 와 Taco 객체들을 저장하는 처리 총괄
+        // 실제 저장하는 일은 saveOrderDetails(order), saveTacoToOrder(taco, orderId)
+        order.setPlacedAt(new Date());
+        long orderId = saveOrderDetails(order);
+        order.setId(orderId);
+        List<Taco> tacos = order.getTacos();
+        for (Taco taco : tacos) {
+            saveTacoToOrder(taco, orderId);
+        }
+
+        return order;
+    }
+
+    private long saveOrderDetails(Order order) {
+        @SuppressWarnings("unchecked")
+        Map<String, Object> values =
+                objectMapper.convertValue(order, Map.class);
+        values.put("placedAt", order.getPlacedAt());
+        long orderId =
+                orderInserter
+                        .executeAndReturnKey(values)
+                        .longValue();
+        return orderId;
+    }
+
+    private void saveTacoToOrder(Taco taco, long orderId) {
+        Map<String, Object> values = new HashMap<>();
+        values.put("tacoOrder", orderId);
+        values.put("taco", taco.getId());
+        orderTacoInserter.execute(values);
+    }
+}
+
+```
 ## 3.1.5 결론
 최근 JPA 나 MyBatis 같은 더욱 강력한 도구들이 나와있지만, 간단한 초기 설정과 낮은 학습비용 덕분에 여전히 JDBC를 사용하는 곳이 존재한다. 또 몰라서 못쓰는 것과, 알고 안쓰는 것은 분명히 다르다고 생각한다. 
