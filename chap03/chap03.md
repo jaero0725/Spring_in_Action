@@ -6,7 +6,7 @@
 > 2) Plain JDBC와 Spring JDBC의 차이, Spring JDBC를 사용하는 이유?
 > 3) Datasource의 Connection Pool 개념
 > 4) JdbcTemplate을 이용하여 CRUD동작 구현하기 
-> 5) SimpleJdbcInsert사용법 익히기 (+objectMapper 개념)
+> 5) SimpleJdbcInsert 사용법 (+objectMapper 개념)
 
 ## 3.1.0 Spring에서 Database를 다루는 큰그림
 ![image](https://user-images.githubusercontent.com/55049159/169668555-346e2b04-6c06-4f1e-9c26-3f8b308c4b75.png)
