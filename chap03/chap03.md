@@ -313,8 +313,7 @@ public class JdbcTacoRepository implements TacoRepository {
 
 - 이 동작이 가능하게 한 핵심은 생성자 쪽의 withTableName()과 usingGeneratedKeyColumns다.
 
-- primary key 값을 얻어내는 과정은 우아해졌지만, Map 자료구조를 사용하는게 다소 아쉽다.
-이를 보완하기 위해 SqlParameterSource 인터페이스가 활용되는데, 스프링에서 SqlParameterSource의 구현체를 다수 제공하고 있다.
+- primary key 값을 얻어내는 과정이 이전보다 편리해짐. 또한 SqlParameterSource를 사용하는 방식도 존재하니 찾아보면 좋을 것같다. 
 
 ### 구현된 코드 
 
