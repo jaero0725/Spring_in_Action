@@ -154,6 +154,26 @@ public class JdbcIngredientRepository implements IngredientRepository {
 
     }
 
+//query 메서드는 두개의 인자를 받는다. 첫번째는 sql이며, 두번째는 RowMapper 인터페이스를 구현한 메서드이다.
+//이부분에 대해서 익명함수를 사용해서 사용해도되지만, 여기서는 this::mapRowToIngredient를 사용하였다. 
+/*
+String SQL = "select * from Student"; 
+List<Student> students = jdbcTemplateObject.query (SQL, 
+				new RowMapper<Student>( ) {
+
+   public Student mapRow(ResultSet rs, int rowNum) 
+			throws SQLException { 
+        Student student = new Student(); 
+
+        student.setID(rs.getInt("id")); 
+        student.setName(rs.getString("name")); 
+        student.setAge(rs.getInt("age")); 
+
+        return student; 
+    } 
+}
+);
+*/
     @Override
     public Ingredient findById(String id) {
         return jdbcTemplate.queryForObject(
@@ -175,7 +195,6 @@ public class JdbcIngredientRepository implements IngredientRepository {
 ```
 ### RowMapper 사용 
 
-### 스키마 정의 
 
 #### 💡 update문을 사용하고 곧장 primary key를 return하고 싶을때는 기존의 jdbcTemplate을 사용하는 것보다 더 나은 방법이 존재한다. 
 
@@ -190,6 +209,5 @@ public class JdbcIngredientRepository implements IngredientRepository {
 - primary key 값을 얻어내는 과정은 우아해졌지만, Map 자료구조를 사용하는게 다소 아쉽다.
 이를 보완하기 위해 SqlParameterSource 인터페이스가 활용되는데, 스프링에서 SqlParameterSource의 구현체를 다수 제공하고 있다.
 
-- 
 ## 3.1.5 결론
 최근 JPA 나 MyBatis 같은 더욱 강력한 도구들이 나와있지만, 간단한 초기 설정과 낮은 학습비용 덕분에 여전히 JDBC를 사용하는 곳이 존재한다. 또 몰라서 못쓰는 것과, 알고 안쓰는 것은 분명히 다르다고 생각한다. 
