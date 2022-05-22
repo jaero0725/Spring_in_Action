@@ -103,7 +103,7 @@ tomcat에서 thread pool을 만들어놔서, 미리 어느정도 만들어 논�
 traffic이 몰리면 기다리는 경우, thread가 부족해서 waiting하는 경우라고 보면됨. <br><br>
 
 DB connection Pool도 마찬가지의 개념이다. DB를 사용하려면 connection을 만들어야 하는데 open, close에 대한 overhead가 커서 미리 만들어놓고 꺼내서 쓰도록 한다.<br>
-connetion pool의 갯수는 파라미터로 설정이 가능함. 너무 많이 만들어놓으면 메모리를 많이 잡아먹을 수 있기때문에 적절한 갯수만큼의 설정을 해주는 것이 좋다. 
+#### connetion pool의 갯수는 파라미터로 설정이 가능함. 너무 많이 만들어놓으면 메모리를 많이 잡아먹을 수 있기때문에 적절한 갯수만큼의 설정을 해주는 것이 좋다. 
 
 
 ## 3.1.3 JdbcTemplate을 이용하여 CRUD동작 구현하기
