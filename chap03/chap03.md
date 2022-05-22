@@ -143,19 +143,28 @@ public interface IngredientRepository {
 # Jdbc Template을 활용한 select처리
 Select 구분
 
-query() : 쿼리문 수행결과가 한개 이상일 경우 -> list 로 반환 
-queryForObjcet() : 쿼리문 수행결과가 한개 일경우 -> 객체 그대로 반환
+1) query() : 쿼리문 수행결과가 한개 이상일 경우 -> list 로 반환 
+2) queryForObjcet() : 쿼리문 수행결과가 한개 일경우 -> 객체 그대로 반환
 
 query(sql, new Object[]{}, new RowMapper<Type>(){
 		...
 	});
+	
+뒤에 두 매개변수는 순서가 바뀌어도 된다. 
 new Object []{값, 값, ...} : sql ?에 세팅할 값 / 매개변수가 없으면 필요없음. 
 new RowMapper<Type>() : 조회 결과를 ResultSet으로 읽어 Type으로 변환한다. mapRow을 override해서 사용.
 	
 # update메서드 
 update(sql, new Object[] {값,값,값}; : ?에 세팅할 값
 
+String SQL = "insert into Student (name, age) values (?, ?)"; 
+jdbcTemplateObject.update( SQL, new Object[]{"Zara", 11} );
 
+String SQL = "update Student set name = ? where id = ?"; 
+jdbcTemplateObject.update( SQL, new Object[]{"Zara", 10} );
+
+String SQL = "delete  from Student where id = ?"; 
+jdbcTemplateObject.update( SQL, new Object[]{20} );
 */
 
 @Repository
