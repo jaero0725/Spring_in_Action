@@ -114,7 +114,7 @@ connetion pool의 갯수는 파라미터로 설정이 가능함. 너무 많이 �
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-jdbc</artifactId>
     </dependency>
-    <!-- 추가적인 JDBC -->
+    <!-- 사용할 DATABASE 관련  -->
     <dependency>
     	<groupId>mysql</groupId>
     	<artifactId>mysql-connector-java</artifactId>
@@ -125,6 +125,54 @@ connetion pool의 갯수는 파라미터로 설정이 가능함. 너무 많이 �
 ### 리포지터리 정의 (DAO) 
 - 인터페이스를 만들고 그 함수들을 Override하는 방식으로 구현 
 
+#### interface
+```java
+public interface IngredientRepository {
+    Iterable<Ingredient> findAll();
+    Ingredient findById(String id);
+    Ingredient save(Ingredient ingredient);
+}
+```
+
+### 구현 
+```java
+@Repository
+public class JdbcIngredientRepository implements IngredientRepository {
+
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public JdbcIngredientRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public Iterable<Ingredient> findAll() {
+        return jdbcTemplate.query(
+                "select id, name, type from Ingredient",
+                this::mapRowToIngredient);
+
+    }
+
+    @Override
+    public Ingredient findById(String id) {
+        return jdbcTemplate.queryForObject(
+                "select id, name, type from Ingredient where id=?",
+                this::mapRowToIngredient, id);
+    }
+
+    @Override
+    public Ingredient save(Ingredient ingredient) {
+        jdbcTemplate.update(
+                "insert into Ingredient (id, name, type) values (?, ?, ?)",
+                ingredient.getId(),
+                ingredient.getName(),
+                ingredient.getType().toString());
+        return ingredient;
+    }
+}
+
+```
 ### RowMapper 사용 
 
 ### 스키마 정의 
