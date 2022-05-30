@@ -19,6 +19,12 @@
 - UserDetails의 password와 사용자가 넘겨준 password(Hashed password)를 바탕으로 하여 확인한다.
 - 인증이 성공적으로 이루어지면, AuthenticationFilter안에 SecurityContext에 Authentication 정보를 저장하게 된다. 
  
+ ### Authorization, Authentication의 개념
+ 
+ ### CSRF란?
+ 
+ ### BCryptPasswordEncoder란?
+  
 <a href="https://zeroco.tistory.com/101?category=871881">Spring Boot에서 Spring Security 설정하기 (in-memory) </a><br>
 <a href="https://zeroco.tistory.com/101?category=871881">Spring Boot에서 Spring Security 설정하기 (Database) </a> <br>
 <a href="https://github.com/jaero0725/FastCampusSpring/tree/main/HANSUNG_UNIV/hs_springSecurity"> 소스코드</a><br>
