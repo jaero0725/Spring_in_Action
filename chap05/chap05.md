@@ -54,16 +54,9 @@ $ java -jar tacocloud-0.0.5-SNAPSHOT.jar --server.port=9090
 ```shell
 $ export SERVER_PORT = 9090
 ```
-  
 
 ## 5.1.2 데이터 소스 구성하기
-```
-spring:
-  datasource:
-    url: jdbc:mysql://localhost/tacocloud
-    username: tacouser
-    password: tacopassword
-```
+
 
 ```
 spring:
@@ -73,9 +66,57 @@ spring:
     password: tacopassword
     driver-class-name: com.mysql.jdbc.Driver
 ```
+DataSource 빈을 자동 구성할때 스프링 부트가 이런 속성 설정을 연결 데이터로 사용. 
+톰캣의 JDBC 커넥션 풀을 classpath에서 자동으로 찾을 수 있따면 Datasoruce 빈이 그걸 사용함. 
+그렇지 않으면, 다른 커넥션 푸을 classpath에서 찾아 사용한다. 
 
+=>Commons DBCP 2
+
+SQL 스크립트의 실행을 이렇게 sechma와 data 속성을 사용하면 더간단하게 지정가능
+```
+spring:
+  datasource:
+    schema:
+      - order-schema.sql
+      - ingredient-schema.sql
+      - taco-schema.sql
+      - user-schema.sql
+    data:
+      - ingredients.sql
+```
+
+JNDI 에 구성 => spring.datasource.jndi-name구성을 구성하면 스프링이 찾아줌.
+```
+spring:
+  datasource:
+    jndi-name: java:/comp/env/jdbc/tacoCloudDs
+```
 ## 5.1.3 내장 서버 구성하기 
+서버에 관련하여, HTTPS 요청 처리를 위한 컨테이너 관련 설정이 필요하다.
+JDK의 keytool 명령행 유틸리티를 사용해서 키스토어를 생성해야 한다. 
 
+keytool 은 Keystore 기반으로 인증서와 키를 관리할 수 있는 
+커맨드 방식의 유틸리티로 JDK 에 포함되어 있다. 
+
+```
+keytool -keystore mykeys.jks -genkey -alias tomcat -keyalg RSA
+```
+keytool이 실행되면 저장 위치 등의 여러 정보를 입력받는데, 
+무엇보다 우리가 입력한 비밀번호를 잘 기억해 두는 것이 중요하다.
+letmein을 비밀번호로 지정할 것이다.
+키스토어 생성이 끝난 후에는 내장 서버의 HTTPS를 활성화하기 위해 
+몇 가지 속성을 설정해야 한다. 이 속성들은 모두 명령행에 지정할 수 있다.
+
+
+application.yml 파일에 설정
+```
+server:
+  port: 8443
+  ssl:
+    key-store: file://path/to/mykeys.jks
+    key-store-password: letmein
+    key-password: letmein
+```
 ## 5.1.4 로깅 구성하기 
 - 대부분의 애플리케이션은 로깅을 제공한다.
 - 기본적으로 스프링 부트는 콘솔에 로그 메시지를 쓰기 위해 Logback을 통해 로깅을 구성한다.이때 기본 로깅 수준은 INFO다.
