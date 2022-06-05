@@ -1,6 +1,6 @@
 # Chap05 구성속성 이해하기
 ## 📖 Chap05.1 에서 배우는 내용  
-#### 🏁 [목표] Spring JDBC 개념과 사용법 익히기
+#### 🏁 [목표] 스프링 자동구성에 대해서 알아보고, slf4j logback에 대해서 
 #### 🏁 [익혀야 되는 개념]
 > 1) 자동구성 ? 
 > 2) 로깅? logback, slf4j, log4j ? 
@@ -164,7 +164,7 @@ Logging이란 어디다가 message에 기록하는 것이다. (console, files, d
 - logging 은 message마다 등급을 주어서 어느정도 레벨의 메시지만 출력할 수 있게 한다.
 - 모든 log를 출력하면 너무 많이 나올 수 있으니깐 개발자가 기준을 사용함. (priority Level)
 - 리소스를 많이 먹음. 
-- 
+
 ### Logging Frameworks 
 java에서 사용하는 프레임워크
 - java.util.logging - 잘 사용 x
@@ -183,6 +183,18 @@ java에서 사용하는 프레임워크
 - slf4j 그대로 구현한거 -> native 는 그대로 사용 
 - log4j.jar 먼저나오고, slf4j가 나중에나온 부분  -> adaptaion layer가 필요함. 
 => logback 만 넣어주면, 의존된거 알아서 추가해줌 
+
+### logger마다 레벨이 있음.
+- Trace < Debug < Info < Warn < Error 
+- 레벨 할당 x -> 레벨이있는 가장 가까운 조상으로 상속 받음 (Level Inheritance)
+- root logger에서 부터 시작됨. 
+- effective level이 중요함. 
+
+![image](https://user-images.githubusercontent.com/55049159/172031549-64f90ce0-6c18-4256-aee7-c3d2dc2f5c18.png)
+![image](https://user-images.githubusercontent.com/55049159/172031552-363cb6f4-7ac1-489e-90f4-0f10256dcd6e.png)
+![image](https://user-images.githubusercontent.com/55049159/172031581-894d873a-a2f4-4e7c-bbc1-dc82eb5a6076.png)
+
+![image](https://user-images.githubusercontent.com/55049159/172031628-74664e5f-055f-4773-b0df-7d551062b3c5.png)
 
 ## 5.1.5 다른 속성의 값을 가져오기
 
