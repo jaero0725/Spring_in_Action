@@ -2,11 +2,8 @@
 ## 📖 Chap05.1 에서 배우는 내용  
 #### 🏁 [목표] Spring JDBC 개념과 사용법 익히기
 #### 🏁 [익혀야 되는 개념]
-> 1) Spring 에서 JDBC를 이용하여 Database를 다루는 큰 그림
-> 2) Plain JDBC와 Spring JDBC의 차이, Spring JDBC를 사용하는 이유?
-> 3) Datasource의 Connection Pool 개념
-
-
+> 1) 자동구성 ? 
+> 2) 로깅? logback, slf4j, log4j ? 
 
 ## 5.1 자동-구성 세부 조정하기 
 ## 5.1.0 두가지 형태의 구성
@@ -34,8 +31,48 @@ public DataSource dataSource() {
 스프링 부트는 런타임 시에 H2 의존성 라이브러리를 찾고 DataSource 빈을 자동으로 찾아 스프링 애플리케이션 컨텍스트에 생성한다.
 
 ## 5.1.1 스프링 환경 추상화 이해하기
+- JVM 시스템 속성
+- 운영체제의 환경 변수
+- 명령행 인자
+- 애플리케이션의 속성 구성 파일
+=> 스프링 환경에서 이 속성들을 한 군데로 모은 후 각 속성이 주입되는 스프링 빈을 사용할 수 있게 해준다. 
+
+예를들어, port를 application.properties 파일이나 application.yml파일에 지정 하거나
+java 명령어 옵션이나 운영체제 환경 변수 설정하는등. 
+
+```
+server.port = 9090 
+```
+```
+server: 
+    port: 9090
+```
+```shell
+$ java -jar tacocloud-0.0.5-SNAPSHOT.jar --server.port=9090
+```
+
+```shell
+$ export SERVER_PORT = 9090
+```
+  
 
 ## 5.1.2 데이터 소스 구성하기
+```
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: tacouser
+    password: tacopassword
+```
+
+```
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: tacouser
+    password: tacopassword
+    driver-class-name: com.mysql.jdbc.Driver
+```
 
 ## 5.1.3 내장 서버 구성하기 
 
@@ -86,6 +123,7 @@ Logging이란 어디다가 message에 기록하는 것이다. (console, files, d
 - logging 은 message마다 등급을 주어서 어느정도 레벨의 메시지만 출력할 수 있게 한다.
 - 모든 log를 출력하면 너무 많이 나올 수 있으니깐 개발자가 기준을 사용함. (priority Level)
 - 리소스를 많이 먹음. 
+- 
 ### Logging Frameworks 
 java에서 사용하는 프레임워크
 - java.util.logging - 잘 사용 x
@@ -100,8 +138,13 @@ java에서 사용하는 프레임워크
 - logback을 사용하다 log4J를 사용하고 싶으면 바꾸기만 하면됨.
 - 컴파일 할 당시에 slf4j-api-1.7.32.jar 이 있어야됨.  
 
+![image](https://user-images.githubusercontent.com/55049159/172030572-6bada568-ad5c-43da-9987-79985268c470.png)
+- slf4j 그대로 구현한거 -> native 는 그대로 사용 
+- log4j.jar 먼저나오고, slf4j가 나중에나온 부분  -> adaptaion layer가 필요함. 
+=> logback 만 넣어주면, 의존된거 알아서 추가해줌 
 
 ## 5.1.5 다른 속성의 값을 가져오기
+
 
 다른 구성 속성들로부터 값을 가져올 수도 있다. 예를 들어 greeting.welcome 이라는 속성을 또 다른 속성인 spring.application.name의 값으로 설정하고 싶다고 해보자.
 
