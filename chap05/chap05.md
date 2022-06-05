@@ -68,9 +68,9 @@ spring:
 ```
 DataSource 빈을 자동 구성할때 스프링 부트가 이런 속성 설정을 연결 데이터로 사용.  <br>
 톰캣의 JDBC 커넥션 풀을 classpath에서 자동으로 찾을 수 있따면 Datasoruce 빈이 그걸 사용함.  <br>
-그렇지 않으면, 다른 커넥션 푸을 classpath에서 찾아 사용한다. 
+그렇지 않으면, 다른 커넥션 풀을 classpath에서 찾아 사용한다. 
 
-=>Commons DBCP 2
+=>Commons DBCP 2 : 자동 구성을 통해 사용가능한 커넥션 풀. 명시적으로 구성하면 어떤 커넥션 풀도 사용가능. 
 
 SQL 스크립트의 실행을 이렇게 sechma와 data 속성을 사용하면 더간단하게 지정가능
 ```
