@@ -26,9 +26,9 @@ public DataSource dataSource() {
 
 ```
 
-만일 스프링 부트를 사용중이 아니라면 이 메서드(dataSource)를 통해 DataSource 빈을 구성할 수 있다.
-하지만 스프링 부트를 사용 중일 때는 자동-구성이 DataSource 빈을 구성해준다.
-스프링 부트는 런타임 시에 H2 의존성 라이브러리를 찾고 DataSource 빈을 자동으로 찾아 스프링 애플리케이션 컨텍스트에 생성한다.
+만일 스프링 부트를 사용중이 아니라면 이 메서드(dataSource)를 통해 DataSource 빈을 구성할 수 있다. <br>
+하지만 스프링 부트를 사용 중일 때는 자동-구성이 DataSource 빈을 구성해준다. <br>
+스프링 부트는 런타임 시에 H2 의존성 라이브러리를 찾고 DataSource 빈을 자동으로 찾아 스프링 애플리케이션 컨텍스트에 생성한다. <br>
 
 ## 5.1.1 스프링 환경 추상화 이해하기
 - JVM 시스템 속성
@@ -37,7 +37,7 @@ public DataSource dataSource() {
 - 애플리케이션의 속성 구성 파일
 => 스프링 환경에서 이 속성들을 한 군데로 모은 후 각 속성이 주입되는 스프링 빈을 사용할 수 있게 해준다. 
 
-예를들어, port를 application.properties 파일이나 application.yml파일에 지정 하거나
+예를들어, port를 application.properties 파일이나 application.yml파일에 지정 하거나 <br>
 java 명령어 옵션이나 운영체제 환경 변수 설정하는등. 
 
 ```
@@ -66,8 +66,8 @@ spring:
     password: tacopassword
     driver-class-name: com.mysql.jdbc.Driver
 ```
-DataSource 빈을 자동 구성할때 스프링 부트가 이런 속성 설정을 연결 데이터로 사용. 
-톰캣의 JDBC 커넥션 풀을 classpath에서 자동으로 찾을 수 있따면 Datasoruce 빈이 그걸 사용함. 
+DataSource 빈을 자동 구성할때 스프링 부트가 이런 속성 설정을 연결 데이터로 사용.  <br>
+톰캣의 JDBC 커넥션 풀을 classpath에서 자동으로 찾을 수 있따면 Datasoruce 빈이 그걸 사용함.  <br>
 그렇지 않으면, 다른 커넥션 푸을 classpath에서 찾아 사용한다. 
 
 =>Commons DBCP 2
@@ -92,19 +92,19 @@ spring:
     jndi-name: java:/comp/env/jdbc/tacoCloudDs
 ```
 ## 5.1.3 내장 서버 구성하기 
-서버에 관련하여, HTTPS 요청 처리를 위한 컨테이너 관련 설정이 필요하다.
-JDK의 keytool 명령행 유틸리티를 사용해서 키스토어를 생성해야 한다. 
+서버에 관련하여, HTTPS 요청 처리를 위한 컨테이너 관련 설정이 필요하다. <br>
+JDK의 keytool 명령행 유틸리티를 사용해서 키스토어를 생성해야 한다.  <br>
 
-keytool 은 Keystore 기반으로 인증서와 키를 관리할 수 있는 
+keytool 은 Keystore 기반으로 인증서와 키를 관리할 수 있는  <br>
 커맨드 방식의 유틸리티로 JDK 에 포함되어 있다. 
 
 ```
 keytool -keystore mykeys.jks -genkey -alias tomcat -keyalg RSA
 ```
-keytool이 실행되면 저장 위치 등의 여러 정보를 입력받는데, 
-무엇보다 우리가 입력한 비밀번호를 잘 기억해 두는 것이 중요하다.
-letmein을 비밀번호로 지정할 것이다.
-키스토어 생성이 끝난 후에는 내장 서버의 HTTPS를 활성화하기 위해 
+keytool이 실행되면 저장 위치 등의 여러 정보를 입력받는데,  <br>
+무엇보다 우리가 입력한 비밀번호를 잘 기억해 두는 것이 중요하다. <br>
+letmein을 비밀번호로 지정할 것이다. <br>
+키스토어 생성이 끝난 후에는 내장 서버의 HTTPS를 활성화하기 위해  <br>
 몇 가지 속성을 설정해야 한다. 이 속성들은 모두 명령행에 지정할 수 있다.
 
 
@@ -118,8 +118,8 @@ server:
     key-password: letmein
 ```
 ## 5.1.4 로깅 구성하기 
-- 대부분의 애플리케이션은 로깅을 제공한다.
-- 기본적으로 스프링 부트는 콘솔에 로그 메시지를 쓰기 위해 Logback을 통해 로깅을 구성한다.이때 기본 로깅 수준은 INFO다.
+- 대부분의 애플리케이션은 로깅을 제공한다. <br>
+- 기본적으로 스프링 부트는 콘솔에 로그 메시지를 쓰기 위해 Logback을 통해 로깅을 구성한다.이때 기본 로깅 수준은 INFO다. <br>
 - 로깅 구성을 제어할 때는 classpath의 루트에(src/main/resources) logback.xml 파일을 생성하면 된다.
 ```xml
 
@@ -138,7 +138,7 @@ server:
 </configuration>
 
 ```
--> 로깅구성에서 로깅 수준과 로그를 수록할 파일을 설정을 하는데, 스프링 부트의 구성 속성을 사용하면 logback.xml파일을 생성하지 않고 로그 설정을 변경할 수 있다.
+-> 로깅구성에서 로깅 수준과 로그를 수록할 파일을 설정을 하는데, 스프링 부트의 구성 속성을 사용하면 logback.xml파일을 생성하지 않고 로그 설정을 변경할 수 있다. <br>
 - 로깅 수준을 설정할 때는 logging.level을 접두어로 갖는 속성들을 생성한다. 그리고 그다음에 로깅 수준을 설정하기 원하는 로거의 이름을 붙인다.
 
 ```
@@ -153,12 +153,12 @@ logging:
 ```
 
 ### Logging with SLF4J and Logback
-일반적으로 서버가 같은 경우는 로깅을 통해 자기가 수행되는 과정을 기록을 해두는 작업이 필요하다. (로깅)
-로깅을 할떄 사용하는 다양한 프레임워크가 있다. 
-SLF4J와 Logback을 사용한다. 
+일반적으로 서버가 같은 경우는 로깅을 통해 자기가 수행되는 과정을 기록을 해두는 작업이 필요하다. (로깅) <br>
+로깅을 할떄 사용하는 다양한 프레임워크가 있다.  <br>
+SLF4J와 Logback을 사용한다.  <br>
 
-Logging이란 어디다가 message에 기록하는 것이다. (console, files, database ..)
-목적 : 디버깅을 위해, 사용자의 interaction을 기록하기 위해.
+Logging이란 어디다가 message에 기록하는 것이다. (console, files, database ..) <br>
+목적 : 디버깅을 위해, 사용자의 interaction을 기록하기 위해. <br>
 
 #### Logging vs System.out.println()
 - logging 은 message마다 등급을 주어서 어느정도 레벨의 메시지만 출력할 수 있게 한다.
@@ -187,7 +187,7 @@ java에서 사용하는 프레임워크
 ## 5.1.5 다른 속성의 값을 가져오기
 
 
-다른 구성 속성들로부터 값을 가져올 수도 있다. 예를 들어 greeting.welcome 이라는 속성을 또 다른 속성인 spring.application.name의 값으로 설정하고 싶다고 해보자.
+다른 구성 속성들로부터 값을 가져올 수도 있다. <br> 예를 들어 greeting.welcome 이라는 속성을 또 다른 속성인 spring.application.name의 값으로 설정하고 싶다고 해보자.
 
 ```
 greeting:
