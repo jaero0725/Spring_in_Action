@@ -1,14 +1,8 @@
 > # 📋 Hypermedia Driven RESTful Web Services - Spring HATEOAS(헤디오스)
-
-## 💡 Introduction 
-### ❓ Question 
-- REST API도 LEVEL 이 존재 한다.
-- HATEOAS란?  : 가장 높은 등급 
-- HATEOAS를 JAVA에서 어떻게 구현할 것인가?
-
 ### 🏁 목표
-- 1) HATEOAS 의 Concept
-- 2) HATEOAS 의 구현
+- 1) HATEOAS란 
+- 2) HATEOAS의 목적
+- 3) HATEOAS의 
 
 ## 💡 REST maturity model : REST 성숙도 모델
 ![image](https://user-images.githubusercontent.com/55049159/120597342-e235cf00-c47f-11eb-96e5-54a1d9b34c32.png)
