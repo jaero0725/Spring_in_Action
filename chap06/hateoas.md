@@ -1,4 +1,4 @@
-> # 📋 Hypermedia Driven RESTful Web Services - Spring HATEOAS
+> # 📋 Hypermedia Driven RESTful Web Services - Spring HATEOAS(헤디오스)
 
 ## 💡 Introduction 
 ### ❓ Question 
