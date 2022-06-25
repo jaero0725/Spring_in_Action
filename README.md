@@ -11,6 +11,6 @@
 |3장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap03/chap03.md">데이터로 작업하기</a>|22-05-22|☑️|
 |4장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap04/chap04.md">스프링 시큐리티</a>|22-05-28|☑️|     
 |5장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap05/chap05.md">자동구성</a>|22-06-05|☑️|    
-|  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap05/chap05.md">복습</a>|22-06-12|☑️|  
-|6장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap05/chap05.md"></a>|22-06-17||             
+|*  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap05/chap05.md">복습</a>|22-06-12|☑️|  
+|6장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap05/chap05.md">hateoas</a>|22-06-17||             
 |7장  <a href="https://github.com/jaero0725/Spring_in_Action/blob/main/chap05/chap05.md">REST 서비스 이용하기</a>|22-06-17||  
