@@ -14,4 +14,4 @@
 |*  <a href="https://github.com/euncheol-kim/SpringInActionGroupStudy/tree/main/weekly_study">복습</a>|22-06-12|☑️|  
 |6장  <a href="https://github.com/euncheol-kim/SpringInActionGroupStudy/tree/main/weekly_study/6week">hateoas</a>|22-06-17|☑️|           
 |7장  <a href="https://github.com/euncheol-kim/SpringInActionGroupStudy/tree/main/weekly_study/7week">REST 서비스 이용하기</a>|22-06-17|☑️| 
-|7장  <a href="https://github.com/TDD-ToyProjectDrivenDevelopers/Financial-Ledger-Spring">가계부 프로젝트 진행</a>|22-07-01 ~ 22-07-31|☑️| 
+|* <a href="https://github.com/TDD-ToyProjectDrivenDevelopers/Financial-Ledger-Spring">가계부 프로젝트 진행</a>|22-07-01 ~ 22-07-31|☑️| 
